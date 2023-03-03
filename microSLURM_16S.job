@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+#SBATCH --partition=amd-hdr100
+#SBATCH --job-name=microSLURM_16S
+#SBATCH --output=0.microSLURM_16S.log
+#SBATCH --ntasks=1
+#SBATCH --time=150:00:00
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=4000
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=user@institution.edu
+
+#Provide location for directory containing raw input sequences, and directory to place pipeline output
+SEQ_DIR=
+OUT_DIR=
+
+#Provide location of pipeline directory
+PIPELINE_DIR=
+
+#Provide sequences for forward and reverse primers used to generate amplicons
+FORWARD_AMPLICON_PRIMER=
+REVERSE_AMPLICON_PRIMER=
+
+#Launch pipeline script
+${PIPELINE_DIR}/microSLURM_16S.sh \
+-i ${SEQ_DIR} \
+-o ${OUT_DIR} \
+-p "conda activate microSLURM_16S" \
+-c ${FORWARD_AMPLICON_PRIMER},${REVERSE_AMPLICON_PRIMER} \
+-r ${PIPELINE_DIR}/Reference_Files/silva_nr99_v138.1_train_set.fa.gz \
+-a ${PIPELINE_DIR}/Reference_Files/silva_species_assignment_v138.1.fa.gz \
+-R \
+-n amd-hdr100,amd-hdr100,amd-hdr100,amd-hdr100,amd-hdr100 \
+-t 2:00:00,12:00:00,50:00:00,2:00:00,50:00:00 \
+-k 1,1,10,1,10 \
+-m 12000,12000,32000,12000,32000 \
+-f user@institution.edu \
+-d

@@ -1,0 +1,14 @@
+name: microSLURM_16S
+channels:
+  - biobakery
+  - conda-forge
+  - bioconda
+  - default
+  - r
+  - defaults
+dependencies:
+  - fastqc=0.11.9
+  - multiqc=1.13
+  - cutadapt=4.1
+  - r-base=4.2.2
+  - raxml-ng=1.1.0
